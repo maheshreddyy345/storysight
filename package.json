@@ -6,5 +6,8 @@
   "scripts": {
     "build": "node inject-env.js"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "type": "module"
 }
