@@ -5,6 +5,9 @@
 [context.production]
   environment = { NODE_VERSION = "16" }
 
+[context.production.environment]
+  OPENAI_API_KEY = "from-netlify-ui"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
