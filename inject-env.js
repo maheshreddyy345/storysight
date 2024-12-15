@@ -1,11 +1,11 @@
 // inject-env.js
 import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 // Read the template file
 const template = readFileSync(join(__dirname, 'index.html'), 'utf8');
