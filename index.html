@@ -18,7 +18,7 @@
             <div class="input-section">
                 <textarea 
                     id="text-input" 
-                    placeholder="Enter your text here..."
+                    placeholder="Enter your text here (e.g., 'Last month, our company saw a 15% increase in sales...')"
                 ></textarea>
                 <button 
                     id="analyze-btn"
@@ -48,8 +48,10 @@
     </div>
 
     <script>
-        // Set API key from Netlify environment variables
-        window.OPENAI_API_KEY = '{{ OPENAI_API_KEY }}';
+        // Get API key from environment variable
+        window.ENV = {
+            OPENAI_API_KEY: process.env.OPENAI_API_KEY
+        };
     </script>
     <script type="module" src="app.js"></script>
 </body>
