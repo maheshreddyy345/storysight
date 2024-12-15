@@ -1,12 +1,9 @@
 [build]
   publish = "."
-  command = ""
+  command = "node inject-env.js"
 
 [context.production]
   environment = { NODE_VERSION = "18.x" }
-
-[context.production.environment]
-  OPENAI_API_KEY = "from-netlify-ui"
 
 [[redirects]]
   from = "/*"

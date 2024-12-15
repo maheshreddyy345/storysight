@@ -1,0 +1,10 @@
+{
+  "name": "storysight",
+  "version": "1.0.0",
+  "description": "Transform text into beautiful animated visualizations",
+  "main": "app.js",
+  "scripts": {
+    "build": "node inject-env.js"
+  },
+  "type": "module"
+}
