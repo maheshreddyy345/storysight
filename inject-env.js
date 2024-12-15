@@ -17,8 +17,15 @@ const template = readFileSync(join(__dirname, 'index.html'), 'utf8');
 // Create a placeholder that won't trigger secret scanning
 const apiKeyPlaceholder = '{{OPENAI_API_KEY}}';
 
-// Replace the environment variable placeholder
-const html = template.replace(apiKeyPlaceholder, process.env.OPENAI_API_KEY || '');
+// Get the API key from environment variables
+const apiKey = process.env.OPENAI_API_KEY || '';
+
+// Create a safe version of the API key for the client
+const safeHtml = template.replace(
+  apiKeyPlaceholder,
+  // Only expose the first and last 4 characters if key exists
+  apiKey ? `${apiKey.slice(0, 4)}...${apiKey.slice(-4)}` : ''
+);
 
 // Write the processed file
-writeFileSync(join(__dirname, 'index.html'), html);
+writeFileSync(join(__dirname, 'index.html'), safeHtml);

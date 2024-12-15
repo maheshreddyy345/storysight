@@ -5,6 +5,9 @@
 [build.environment]
   NODE_VERSION = "16"
 
+[build.processing.secrets]
+  scan = "false"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
