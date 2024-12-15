@@ -1,3 +1,5 @@
+import LLMService from './llm-service.js';
+
 class StorySight {
     constructor() {
         this.textInput = document.getElementById('textInput');
@@ -9,6 +11,7 @@ class StorySight {
         this.exportBtn = document.getElementById('exportBtn');
         
         this.currentData = null;
+        this.llmService = new LLMService();
         this.initialize();
     }
 
@@ -18,68 +21,62 @@ class StorySight {
         this.exportBtn.addEventListener('click', () => this.exportVisualization());
     }
 
-    processText() {
+    async processText() {
         const text = this.textInput.value;
         if (!text) return;
 
-        const numbers = [];
-        const labels = [];
-        
-        // Define patterns to match
-        const patterns = [
-            { regex: /\$(\d+(?:\.\d+)?[KMB]?)/g, label: 'Sales' },
-            { regex: /(\d+(?:\.\d+)?)%/g, label: 'Percentage' }
-        ];
+        try {
+            // Show loading state
+            this.visualizeBtn.disabled = true;
+            this.visualizeBtn.innerHTML = '<span class="animate-spin">↻</span> Processing...';
 
-        // Extract numbers and create meaningful labels
-        patterns.forEach(pattern => {
-            let match;
-            while ((match = pattern.regex.exec(text)) !== null) {
-                let value = match[1];
-                // Convert K, M, B to actual numbers
-                if (value.endsWith('K')) {
-                    value = parseFloat(value.slice(0, -1)) * 1000;
-                } else if (value.endsWith('M')) {
-                    value = parseFloat(value.slice(0, -1)) * 1000000;
-                } else if (value.endsWith('B')) {
-                    value = parseFloat(value.slice(0, -1)) * 1000000000;
-                } else {
-                    value = parseFloat(value);
-                }
-                numbers.push(value);
-                
-                // Create meaningful label based on context
-                let label = '';
-                if (text.toLowerCase().includes('sales') && pattern.label === 'Sales') {
-                    label = 'Q3 Sales';
-                } else if (text.toLowerCase().includes('quantum')) {
-                    label = 'Quantum Series';
-                } else if (text.toLowerCase().includes('traffic')) {
-                    label = 'Traffic Growth';
-                } else {
-                    label = pattern.label;
-                }
-                labels.push(label);
-            }
-        });
+            // Extract data points using LLM
+            const result = await this.llmService.extractDataPoints(text);
+            
+            // Generate insights
+            const insights = this.llmService.generateInsights(result.dataPoints);
+            
+            // Update the visualization
+            this.currentData = {
+                values: result.dataPoints.map(dp => dp.value),
+                labels: result.dataPoints.map(dp => dp.label),
+                categories: result.dataPoints.map(dp => dp.category),
+                trends: result.dataPoints.map(dp => dp.trend),
+                summary: result.summary,
+                insights: insights
+            };
 
-        if (numbers.length === 0) {
-            alert('No numbers found in the text. Please include some numerical data.');
-            return;
+            this.createVisualization();
+        } catch (error) {
+            console.error('Error processing text:', error);
+            alert('Error processing text. Please check your API key and try again.');
+        } finally {
+            // Reset button state
+            this.visualizeBtn.disabled = false;
+            this.visualizeBtn.innerHTML = `
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                Visualize Text
+            `;
         }
-
-        this.currentData = {
-            values: numbers,
-            labels: labels
-        };
-
-        this.createVisualization();
     }
 
     createVisualization() {
         this.visualizationArea.innerHTML = '';
-        const chartType = this.chartType.value;
+        
+        // Add insights panel
+        const insightsPanel = document.createElement('div');
+        insightsPanel.className = 'insights-panel mb-4 p-4 bg-theme-green-800 rounded-lg';
+        insightsPanel.innerHTML = `
+            <h3 class="text-lg font-bold mb-2 text-theme-green-100">Data Insights</h3>
+            <p class="text-theme-green-200 mb-2">${this.currentData.summary}</p>
+            <pre class="text-sm text-theme-green-300 whitespace-pre-wrap">${this.currentData.insights}</pre>
+        `;
+        this.visualizationArea.appendChild(insightsPanel);
 
+        const chartType = this.chartType.value;
         if (chartType === 'pie') {
             this.createPieChart();
         } else {
@@ -98,7 +95,7 @@ class StorySight {
         svg.setAttribute('viewBox', '0 0 100 100');
         svg.style.transform = 'rotate(-90deg)'; // Start from top
 
-        const colors = ['#60a5fa', '#4ade80', '#f472b6'];
+        const colors = ['#22c55e', '#16a34a', '#15803d'];
         const legendContainer = document.createElement('div');
         legendContainer.className = 'legend-container';
 

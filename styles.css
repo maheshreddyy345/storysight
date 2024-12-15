@@ -34,7 +34,7 @@
 .chart-bar {
     transform-origin: bottom;
     width: 100%;
-    background-color: #4f46e5;
+    background-color: #22c55e;
     border-radius: 4px 4px 0 0;
     position: relative;
     transition: height 0.5s ease-out;
@@ -44,9 +44,9 @@
     position: relative;
     width: 100%;
     height: 400px;
-    border: 1px solid #374151;
+    border: 1px solid #16a34a;
     border-radius: 8px;
-    background-color: #1e293b;
+    background-color: #14532d;
 }
 
 .chart-column {
@@ -70,8 +70,9 @@
 .chart-label {
     margin-top: 8px;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #bbf7d0;
     text-align: center;
+    font-family: 'Times New Roman', serif;
 }
 
 .chart-value {
@@ -81,12 +82,13 @@
     transform: translateX(-50%);
     font-size: 0.875rem;
     color: #fff;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(22, 101, 52, 0.8);
     padding: 2px 6px;
     border-radius: 4px;
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.3s ease-out;
+    font-family: 'Times New Roman', serif;
 }
 
 .chart-bar:hover .chart-value {
@@ -125,13 +127,14 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    font-family: 'Times New Roman', serif;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #e2e8f0;
+    color: #dcfce7;
 }
 
 .legend-color {
