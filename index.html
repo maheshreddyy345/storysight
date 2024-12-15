@@ -4,26 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StorySight - Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-theme-green-900 text-white min-h-screen font-times">
-    <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold mb-2 text-theme-green-100">StorySight</h1>
-            <p class="text-theme-green-200 text-lg">Transform your text into beautiful animated visualizations</p>
+<body>
+    <div class="container">
+        <header>
+            <h1>StorySight</h1>
+            <p>Transform your text into beautiful animated visualizations</p>
         </header>
 
-        <main class="max-w-4xl mx-auto">
-            <div class="input-section mb-8">
+        <main>
+            <div class="input-section">
                 <textarea 
                     id="text-input" 
-                    class="w-full p-4 rounded-lg bg-theme-green-800 text-white border border-theme-green-600 focus:border-theme-green-400 focus:ring-2 focus:ring-theme-green-400 outline-none transition"
-                    rows="4"
                     placeholder="Enter your text here..."
                 ></textarea>
                 <button 
                     id="analyze-btn"
-                    class="mt-4 px-6 py-3 bg-theme-green-600 hover:bg-theme-green-500 rounded-lg font-semibold flex items-center justify-center gap-2 mx-auto transition"
                 >
                     Analyze Text
                 </button>
@@ -36,18 +34,23 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                     </svg>
                 </div>
-                <p class="text-theme-green-200 text-lg">Processing your text...</p>
+                <p>Processing your text...</p>
             </div>
 
             <div class="visualization-section">
-                <div id="insights-panel" class="insights-panel bg-theme-green-800 rounded-lg p-6 shadow-xl"></div>
-                <div id="chart-container" class="chart-container bg-theme-green-800 rounded-lg p-6 shadow-xl"></div>
+                <div id="insights-panel" class="insights-panel"></div>
+                <div id="chart-container" class="chart-container"></div>
                 <div class="controls">
-                    <button id="record-btn" class="px-4 py-2 bg-theme-green-600 hover:bg-theme-green-500 rounded-lg font-semibold transition">Record Animation</button>
+                    <button id="record-btn">Record Animation</button>
                 </div>
             </div>
         </main>
     </div>
+
+    <script>
+        // Set API key from Netlify environment variables
+        window.OPENAI_API_KEY = '{{ OPENAI_API_KEY }}';
+    </script>
     <script type="module" src="app.js"></script>
 </body>
 </html>

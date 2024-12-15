@@ -1,5 +1,4 @@
 import LLMService from './llm-service.js';
-import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts@5.4.3/+esm';
 
 class App {
     constructor() {
@@ -55,25 +54,38 @@ class App {
         const option = {
             title: {
                 text: 'Data Visualization',
-                left: 'center'
+                left: 'center',
+                textStyle: {
+                    color: '#ecfdf5'
+                }
             },
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
                 data: [...new Set(data.dataPoints.map(dp => dp.category))],
-                bottom: 10
+                bottom: 10,
+                textStyle: {
+                    color: '#ecfdf5'
+                }
             },
             xAxis: {
                 type: 'category',
-                data: data.dataPoints.map(dp => dp.label)
+                data: data.dataPoints.map(dp => dp.label),
+                axisLabel: {
+                    color: '#ecfdf5'
+                }
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                axisLabel: {
+                    color: '#ecfdf5'
+                }
             },
             series: this.createSeriesData(data),
             animationDuration: 2000,
-            animationEasing: 'cubicInOut'
+            animationEasing: 'cubicInOut',
+            backgroundColor: 'transparent'
         };
 
         this.chartInstance.setOption(option);
