@@ -146,3 +146,148 @@
 .legend-label {
     font-size: 0.875rem;
 }
+
+/* Base styles */
+body {
+    font-family: "Times New Roman", serif;
+    background-color: #064e3b;
+    color: #ecfdf5;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #10b981;
+    margin-bottom: 0.5rem;
+}
+
+/* Input section styles */
+.input-section {
+    margin-bottom: 2rem;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    background-color: #065f46;
+    color: #ecfdf5;
+    border: 2px solid #059669;
+    border-radius: 0.5rem;
+    resize: vertical;
+    font-family: inherit;
+    margin-bottom: 1rem;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+button {
+    background-color: #059669;
+    color: #ecfdf5;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: #10b981;
+}
+
+/* Loading spinner */
+#loading {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #10b981;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Visualization section styles */
+.visualization-section {
+    background-color: #065f46;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.insights-panel {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #064e3b;
+    border-radius: 0.5rem;
+    color: #ecfdf5;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 2rem;
+    background-color: #064e3b;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .visualization-section {
+        padding: 1rem;
+    }
+
+    .chart-container {
+        height: 300px;
+    }
+}

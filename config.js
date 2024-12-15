@@ -1,6 +1,3 @@
-// Use environment variable for API key
-const CONFIG = {
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY || ''
-};
+import { CONFIG } from "./CONFIG.1";
 
 export default CONFIG;
